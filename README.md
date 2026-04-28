@@ -16,13 +16,23 @@ by providing the code and exact build steps used to generate release binaries.
 1. Install prerequisites:
    - Python 3.10+ (with `pip`)
    - .NET 8 SDK
-2. Run from repository root:
+   - (Optional for signed EXE) Windows SDK `signtool.exe` and a code-sign certificate
+2. Ensure the item DB exists:
+   - place `windrose_items.db` in `Python_Runner\Assets\`
+   - or place it in repo root and `build_installer.ps1` will copy it into `Assets\`
+3. Run from repository root:
 
    `powershell -ExecutionPolicy Bypass -File Python_Runner\build_installer.ps1`
 
-3. Output:
+4. Output:
 
    `Compiled\Python\WindroseWIM.exe`
+
+5. Verify metadata/signature:
+   - metadata:
+     `(Get-Item .\Compiled\Python\WindroseWIM.exe).VersionInfo | Format-List`
+   - signature:
+     `Get-AuthenticodeSignature .\Compiled\Python\WindroseWIM.exe | Format-List`
 
 ## Build Nexus installer
 
@@ -38,3 +48,12 @@ by providing the code and exact build steps used to generate release binaries.
 4. Outputs:
    - `Compiled\Installer\WindroseWIM-Setup.exe`
    - `Compiled\Installer\SHA256SUMS.txt`
+
+## Reproducibility notes
+
+- Build scripts are checked in and versioned:
+  - `Python_Runner\build_installer.ps1`
+  - `tools\Build-NexusInstaller.ps1`
+  - `installer\WindroseWIM.iss`
+- All new compiled outputs go to `Compiled\`.
+- For future updates, source changes and file deletions should be pushed to GitHub in the same release cycle.
