@@ -1,0 +1,6 @@
+build/
+dist/
+*.spec
+Assets/bundled/
+Assets/decompiled/[Bb]in/
+Assets/decompiled/[Oo]bj/

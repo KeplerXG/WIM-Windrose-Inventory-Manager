@@ -1,0 +1,5 @@
+﻿Upload Package Contents
+- Python_Runner/ (source + build scripts)
+- tools/ (installer/release scripts)
+
+Excluded: build artifacts (dist/build/bin/obj/__pycache__)
